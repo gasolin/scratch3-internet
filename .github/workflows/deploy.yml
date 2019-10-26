@@ -15,21 +15,17 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-#     - name: Use Node.js ${{ matrix.node-version }}
-#       uses: actions/setup-node@v1
-#       with:
-#         node-version: ${{ matrix.node-version }}
-#     - name: npm install, build, and test
-#       run: |
-#         npm run setup
-#         npm run build --if-present
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: npm install, build, and test
+      run: |
+        npm run setup
+        npm run build --if-present
     - name: Deploy to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@2.0.3
+      uses: peaceiris/actions-gh-pages@v2.5.0
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        BASE_BRANCH: master # The branch the action should deploy from.
-        BRANCH: gh-pages # The branch the action should deploy to.
-        FOLDER: scratch-gui/build # The folder the action should deploy.
-        BUILD_SCRIPT: |
-          npm run setup
-          npm run build --if-present
+        ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        PUBLISH_BRANCH: gh-pages
+        PUBLISH_DIR: ./scratch-gui/build
