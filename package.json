@@ -9,7 +9,7 @@
     "setup:vm": "cd scratch-vm && npm install && npm link && cd ..",
     "setup": "git submodule init && npm run setup:vm && npm run setup:gui && npm install shx",
     "start": "cd scratch-gui && npm start",
-    "build": "shx sed -i '--progress' '--display' scratch-gui/package.json && cd scratch-gui && npm run build",
+    "build": "shx sed -i '--progress' '--display' ./scratch-gui/package.json && cd scratch-gui && npm run build",
     "upgrade": "git submodule update --init"
   },
   "repository": {
