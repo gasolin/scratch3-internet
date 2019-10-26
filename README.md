@@ -1,12 +1,15 @@
 # scratch3-internet
 
+
+## Getting start
+
 ```
 git clone https://github.com/gasolin/scratch3-internet.git
-git submodule --init
-npm setup
+npm run setup
+npm run start
 ```
 
-## update submodules
+## Update submodules
 
 ```sh
 git submodule update --init
