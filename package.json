@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "setup:gui": "cd scratch-gui && npm install && npm link scratch-vm && cd ..",
     "setup:vm": "cd scratch-vm && npm install && npm link && cd ..",
-    "setup": "git submodule init && npm run setup:vm && npm run setup:gui && npm install shx",
+    "setup": "git submodule init && npm install && npm run setup:vm && npm run setup:gui",
     "start": "cd scratch-gui && npm start",
     "build:replace": "shx sed -i '--progress' '--display' 'scratch-gui/package.json'",
     "build:gui": "cd scratch-gui && npm run build & cd ..",
