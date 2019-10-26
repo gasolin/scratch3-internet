@@ -1,2 +1,14 @@
 # scratch3-internet
-Some extensions to extend scratch 3's internet capability
+
+```
+git clone https://github.com/gasolin/scratch3-internet.git
+git submodule --init
+```
+
+## update submodules
+
+```sh
+git submodule update --init
+```
+
+This will clone `scratch-gui` and `scratch-vm` as submodules.
