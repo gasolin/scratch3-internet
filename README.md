@@ -3,6 +3,7 @@
 ```
 git clone https://github.com/gasolin/scratch3-internet.git
 git submodule --init
+npm setup
 ```
 
 ## update submodules

@@ -1,0 +1,28 @@
+{
+  "name": "scratch3-internet",
+  "version": "0.0.1",
+  "description": "Some extensions to extend scratch 3's internet capability",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "setup:gui": "cd scratch-gui && npm install && npm link scratch-vm && cd ..",
+    "setup:vm": "cd scratch-vm && npm install && npm link && cd ..",
+    "setup": "git submodule --init && npm run setup:vm && npm run setup:gui",
+    "start": "cd scratch-gui && npm start",
+    "build": "cd scratch-gui && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gasolin/scratch3-internet.git"
+  },
+  "keywords": [
+    "scratch3",
+    "extension"
+  ],
+  "author": "Fred Lin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gasolin/scratch3-internet/issues"
+  },
+  "homepage": "https://github.com/gasolin/scratch3-internet#readme"
+}
