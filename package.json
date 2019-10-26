@@ -9,7 +9,7 @@
     "setup:vm": "cd scratch-vm && npm install && npm link && cd ..",
     "setup": "git submodule init && npm install && npm run setup:vm && npm run setup:gui",
     "start": "cd scratch-gui && npm start",
-    "build:replace": "shx sed -i '--progress' '--display' 'scratch-gui/package.json'",
+    "build:replace": "replace-in-files --string='--progress' --replacement='--display' 'scratch-gui/package.json'",
     "build:gui": "cd scratch-gui && npm run build & cd ..",
     "build": "npm run build:replace && npm run build:gui",
     "upgrade": "git submodule update --init"
@@ -29,6 +29,6 @@
   },
   "homepage": "https://github.com/gasolin/scratch3-internet#readme",
   "dependencies": {
-    "shx": "^0.3.2"
+    "replace-in-files-cli": "^0.3.0"
   }
 }
