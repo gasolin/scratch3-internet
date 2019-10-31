@@ -32,5 +32,5 @@ jobs:
         SCRIPT_MODE: true
       run: |
         wget https://raw.githubusercontent.com/peaceiris/actions-gh-pages/v2.5.0/entrypoint.sh
-        ls scratch-gui/
+        ls scratch-gui/build
         bash ./entrypoint.sh
