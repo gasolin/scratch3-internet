@@ -11,7 +11,7 @@
     "start": "cd scratch-gui && npm start",
     "build:replace": "replace-in-files --string='--progress' --replacement='--display' 'scratch-gui/package.json'",
     "build:gui": "cd scratch-gui && npm run build & cd ..",
-    "build": "npm run build:replace && npm run build:gui",
+    "build": "npm run build:gui",
     "upgrade": "git submodule update --init"
   },
   "repository": {
