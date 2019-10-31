@@ -23,6 +23,7 @@ jobs:
       run: |
         npm run setup
         npm run build
+        ls scratch-gui/build/
     - name: Deploy to GitHub Pages
       # uses: peaceiris/actions-gh-pages@v2.5.0
       env:
