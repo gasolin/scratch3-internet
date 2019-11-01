@@ -9,9 +9,9 @@
     "setup:vm": "cd scratch-vm && npm install && npm link && cd ..",
     "setup": "git submodule init && git submodule update && npm install && npm run setup:vm && npm run setup:gui",
     "start": "cd scratch-gui && npm start",
-    "build:replace": "replace-in-files --string='--progress' --replacement='--display --mode production' 'scratch-gui/package.json'",
-    "build:gui": "cd scratch-gui && npm run build & cd ..",
-    "build": "npm run build:replace && npm run build:gui",
+    "build:replace": "replace-in-files --string='--progress' --replacement='--display-error-details --mode production' 'scratch-gui/package.json'",
+    "build:gui": "cd scratch-gui && webpack --display --mode production --colors --bail & cd ..",
+    "build": "npm run build:gui",
     "upgrade": "git submodule update --init"
   },
   "repository": {
