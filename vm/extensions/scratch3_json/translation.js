@@ -13,22 +13,22 @@ export const onJSONReceived = {
     'zh-tw': '當代號為 [id] 收到JSON資料時',
 };
 
-export const readAttrFromJSON = {
-    'en': 'Read JSON data [id] with attribute [attr]',
-    'zh-tw': '讀取JSON資料代號為 [id] 參數為 [attr] 的資料',
+export const readFromJSON = {
+    'en': 'Read JSON data [id]',
+    'zh-tw': '讀取代號為 [id] 的JSON資料',
 };
 
-// export const readAttrFromJSONErr = {
-//     'en': `Error： ${id}[${attr}] is not exist`,
-//     'zh-tw': `錯誤： ${id}[${attr}]不存在`,
-// };
+export const readFromJSONErr = {
+    'en': `Error： Data [id] does not exist`,
+    'zh-tw': `錯誤： 資料 [id] 不存在`,
+};
+
+export const readAttrFromJSON = {
+    'en': 'Read data from [variable] with attribute [attr]',
+    'zh-tw': '從 [variable] 讀取參數為 [attr] 的資料',
+};
 
 export const readEntryFromJSON = {
-    'en': 'Read JSON data [id] in [n]th entry with attribute [attr]',
-    'zh-tw': '讀取JSON資料代號為 [id] 的第 [n] 參數為 [attr] 的資料',
+    'en': 'Read data [id] in [n]th entry',
+    'zh-tw': '從 [variable] 讀取第 [n] 筆資料',
 };
-
-// export const readEntryFromJSONErr = {
-//     'en': `Error： ${id} in ${n}th entry with attribute ${attr} is not exist`,
-//     'zh-tw': `錯誤： ${id}第${n}筆資料[${attr}]不存在`,
-// };

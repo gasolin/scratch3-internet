@@ -27,6 +27,9 @@ class gasoJSON {
         this.lineBuffer = '';
 
         this.data = {};
+        this.emptyObj = {
+            VALUE: {}
+        };
     }
 
     onclose () {
@@ -115,17 +118,32 @@ class gasoJSON {
                         id: {
                             type: ArgumentType.STRING,
                             defaultValue: 'id'
+                        },
+                        variable: {
+                            type: ArgumentType.STRING,
+                            defaultValue: 'data'
                         }
                     },
                     text: msg.onJSONReceived[theLocale]
                 },
                 {
-                    opcode: 'readAttrFromJSON',
+                    opcode: 'readFromJSON',
                     blockType: BlockType.REPORTER,
                     arguments: {
                         id: {
                             type: ArgumentType.STRING,
                             defaultValue: 'id'
+                        }
+                    },
+                    text: msg.readFromJSON[theLocale]
+                },
+                {
+                    opcode: 'readAttrFromJSON',
+                    blockType: BlockType.REPORTER,
+                    arguments: {
+                        variable: {
+                            type: ArgumentType.STRING,
+                            defaultValue: 'data'
                         },
                         attr: {
                             type: ArgumentType.STRING,
@@ -138,17 +156,13 @@ class gasoJSON {
                     opcode: 'readEntryFromJSON',
                     blockType: BlockType.REPORTER,
                     arguments: {
-                        id: {
+                        variable: {
                             type: ArgumentType.STRING,
-                            defaultValue: 'id'
+                            defaultValue: 'data'
                         },
                         n: {
                             type: ArgumentType.NUMBER,
                             defaultValue: '1'
-                        },
-                        attr: {
-                            type: ArgumentType.STRING,
-                            defaultValue: 'attr'
                         }
                     },
                     text: msg.readEntryFromJSON[theLocale]
@@ -157,7 +171,7 @@ class gasoJSON {
         };
     }
 
-    fetchJSON (args, util) {
+    fetchJSON (args) {
         const url = args.url;
         const id = args.id || defaultId;
         return fetch(url).then(res => {
@@ -166,7 +180,7 @@ class gasoJSON {
                     console.log("got json set", json);
                     this.data[id] = {
                         fetched: true,
-                        data: json
+                        data: JSON.stringify(json)
                     };
                     this.runtime.startHats('gasoJSON_onJSONReceived', {});
                 });
@@ -178,36 +192,45 @@ class gasoJSON {
         return this.data[id] && this.data[id].fetched;
     }
 
-    onJSONReceived (args, util){
+    onJSONReceived (args){
         const id = args.id || defaultId;
         if (this.isDataFetched(id)) {
-            console.log('got id ', id);
+            console.log('got data with id ', id);
             return true;
         }
     }
 
-    readAttrFromJSON (args, util) {
+    readFromJSON (args) {
         const id = args.id || defaultId;
-        const attr = args.attr;
-
         if (this.isDataFetched(id)) {
-            console.log('show ', this.data[id].data[attr]);
-            return this.data[id].data[attr];
+            console.log('return ', this.data[id].data);
+            return this.data[id].data;
         }
-        // return msg.readEntryFromJSONErr[theLocale];
-        return `錯誤： ${id}[${attr}]不存在`;
+        return msg.readFromJSONErr[theLocale];
     }
 
-    readEntryFromJSON (args, util) {
-        const id = args.id || defaultId;
+    readAttrFromJSON (args) {
+        const variable = args.variable || this.emptyObj;
         const attr = args.attr;
-        const n = args.n;
-
-        if (this.isDataFetched(id)) {
-            return this.data[id].data[n - 1][attr];
+        try {
+            const parsed = JSON.parse(variable);
+            const data = parsed[attr];
+            return typeof data === 'string' ? data : JSON.stringify(data);
+        } catch (err) {
+            return `Error: ${err}`;
         }
-        // return msg.readEntryFromJSONErr[theLocale];
-        return `錯誤： ${id}第${n}筆資料[${attr}]不存在`;
+    }
+
+    readEntryFromJSON (args) {
+        const variable = args.variable || this.emptyObj;
+        const n = args.n;
+        try {
+            const parsed = JSON.parse(variable);
+            const data = parsed[n - 1];
+            return typeof data === 'string' ? data : JSON.stringify(data);
+        } catch (err) {
+            return `Error: ${err}`;
+        }
     }
 }
 
