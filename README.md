@@ -17,3 +17,16 @@ git submodule update --init
 ```
 
 This will clone `scratch-gui` and `scratch-vm` as submodules.
+
+## Blocks
+
+currently provides
+- [JSON parse blocks](https://github.com/gasolin/scratch3-internet/tree/master/vm/extensions/scratch3_json)
+
+## Translation
+
+Currently provide block translations for
+- English (en)
+- Traditional Chinsese (zh-tw)
+
+Translation files are locate nearby the blocks definition file in the `/vm/extensions/` folder.
