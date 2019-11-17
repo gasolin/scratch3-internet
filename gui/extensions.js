@@ -1,5 +1,5 @@
 const json = {
-    name: 'JSON積木',
+    name: 'JSON',
     extensionId: 'json',
     collaborator: 'gasolin',
     iconURL: gdxforIconURL,

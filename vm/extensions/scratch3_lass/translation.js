@@ -1,4 +1,9 @@
-export const fetrchLASS = {
+export const name = {
+    'en': 'LASS',
+    'zh-tw': 'LASS'
+};
+
+export const fetchLASS = {
     'en': 'LASS Device [id]',
     'zh-tw': 'LASS 設備編號 [id]'
 };

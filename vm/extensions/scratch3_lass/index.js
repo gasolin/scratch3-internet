@@ -99,9 +99,11 @@ class gasoLASS{
     }
 
     getInfo (){
+        theLocale = this._setLocale();
+
         return {
             id: 'gasoLASS',
-            name: 'LASS',
+            name: msg.name[theLocale],
             color1: '#4a90e2',
             color2: '#4a90e2',
             menuIconURI: menuIconURI,
@@ -116,7 +118,7 @@ class gasoLASS{
                             defaultValue: defaultId
                         }
                     },
-                    text: msg.fetchLASS
+                    text: msg.fetchLASS[theLocale]
                 },
                 {
                     opcode: 'onLASSReceived',
@@ -128,27 +130,12 @@ class gasoLASS{
                             defaultValue: defaultId
                         }
                     },
-                    text: msg.onLASSReceived
+                    text: msg.onLASSReceived[theLocale]
                 },
-                // {
-                //     opcode: 'readFromLASS',
-                //     blockType: BlockType.REPORTER,
-                //     arguments: {
-                //         id: {
-                //             type: ArgumentType.STRING,
-                //             defaultValue: defaultId
-                //         }
-                //     },
-                //     text: '讀取設備編號為 [id] 的 LASS 資料'
-                // },
                 {
                     opcode: 'parseAttrFromLASS',
                     blockType: BlockType.REPORTER,
                     arguments: {
-                        // variable: {
-                        //     type: ArgumentType.STRING,
-                        //     defaultValue: 'data'
-                        // },
                         id: {
                             type: ArgumentType.STRING,
                             defaultValue: defaultId
@@ -159,7 +146,7 @@ class gasoLASS{
                             defaultValue: LassAttr.PM25
                         }
                     },
-                    text: msg.parseAttrFromLASS
+                    text: msg.parseAttrFromLASS[theLocale]
                 }
             ],
             menus: {
@@ -175,7 +162,7 @@ class gasoLASS{
                         //     value: LassAttr.PM10
                         // },
                         {
-                            text: msg.tempc,
+                            text: msg.tempc[theLocale],
                             value: LassAttr.tempc
                         },
                         // {
@@ -183,7 +170,7 @@ class gasoLASS{
                         //     value: LassAttr.tempf
                         // },
                         {
-                            text: msg.humidity,
+                            text: msg.humidity[theLocale],
                             value: LassAttr.humidity
                         }
                     ]
@@ -222,20 +209,10 @@ class gasoLASS{
         }
     }
 
-    // readFromLASS (args) {
-    //     const id = args.id || defaultId;
-    //     if (this.isDataFetched(id)) {
-    //         return this.data[id].data;
-    //     }
-    //     return msg.readFromLASSErr[theLocale];
-    // }
-
     parseAttrFromLASS (args){
         const id = args.id || defaultId;
-        // const variable = args.variable || this.emptyObj;
         const attr = args.attr;
         if (this.isDataFetched(id)) {
-            // return this.data[id].data;
             try {
                 const parsed = JSON.parse(this.data[id].data);
                 console.warn('parsed ', attr, parsed);

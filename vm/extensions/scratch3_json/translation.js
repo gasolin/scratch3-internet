@@ -1,6 +1,6 @@
 export const name = {
     'en': 'JSON',
-    'zh-tw': 'JSON積木',
+    'zh-tw': 'JSON',
 };
 
 export const fetchJSON = {
