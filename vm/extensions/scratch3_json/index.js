@@ -102,10 +102,6 @@ class gasoJSON {
                         url: {
                             type: ArgumentType.STRING,
                             defaultValue: 'https://'
-                        },
-                        id: {
-                            type: ArgumentType.STRING,
-                            defaultValue: 'id'
                         }
                     },
                     text: msg.fetchJSON[theLocale]
@@ -114,16 +110,7 @@ class gasoJSON {
                     opcode: 'onJSONReceived',
                     blockType: BlockType.HAT,
                     isEdgeActivated: false,
-                    arguments: {
-                        id: {
-                            type: ArgumentType.STRING,
-                            defaultValue: 'id'
-                        },
-                        variable: {
-                            type: ArgumentType.STRING,
-                            defaultValue: 'data'
-                        }
-                    },
+                    arguments: {},
                     text: msg.onJSONReceived[theLocale]
                 },
                 {
@@ -173,49 +160,33 @@ class gasoJSON {
 
     fetchJSON (args) {
         const url = args.url;
-        const id = args.id || defaultId;
         return fetch(url).then(res => {
             if (res.ok) {
                 res.json().then(json => {
                     console.log("got json set", json);
-                    this.data[id] = {
-                        fetched: true,
-                        data: JSON.stringify(json)
-                    };
+                    this.data.fetched = true;
+                    this.data.data = JSON.stringify(json);
                     this.runtime.startHats('gasoJSON_onJSONReceived', {});
                 });
             }
         });
     }
 
-    isDataFetched (id) {
-        return this.data[id] && this.data[id].fetched;
+    isDataFetched () {
+        return this.data.fetched;
     }
 
-    // scratch-vm/src/blocks/scratch3_data.js
-    // setVariableTo (args, util) {
-    //     const variable = util.target.lookupOrCreateVariable(
-    //         args.VARIABLE.id, args.VARIABLE.name);
-    //     variable.value = args.VALUE;
-
-    //     if (variable.isCloud) {
-    //         util.ioQuery('cloud', 'requestUpdateVariable', [variable.name, args.VALUE]);
-    //     }
-    // }
-
-    onJSONReceived (args){
-        const id = args.id || defaultId;
-        if (this.isDataFetched(id)) {
-            console.log('got data with id ', id);
+    onJSONReceived (){
+        if (this.isDataFetched()) {
+            console.log('got data');
             return true;
         }
     }
 
-    readFromJSON (args) {
-        const id = args.id || defaultId;
-        if (this.isDataFetched(id)) {
-            console.log('return ', this.data[id].data);
-            return this.data[id].data;
+    readFromJSON () {
+        if (this.isDataFetched()) {
+            console.log('return ', this.data.data);
+            return this.data.data;
         }
         return msg.readFromJSONErr[theLocale];
     }

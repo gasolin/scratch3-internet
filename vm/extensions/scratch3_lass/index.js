@@ -124,22 +124,13 @@ class gasoLASS{
                     opcode: 'onLASSReceived',
                     blockType: BlockType.HAT,
                     isEdgeActivated: false,
-                    arguments: {
-                        id: {
-                            type: ArgumentType.STRING,
-                            defaultValue: defaultId
-                        }
-                    },
+                    arguments: {},
                     text: msg.onLASSReceived[theLocale]
                 },
                 {
                     opcode: 'parseAttrFromLASS',
                     blockType: BlockType.REPORTER,
                     arguments: {
-                        id: {
-                            type: ArgumentType.STRING,
-                            defaultValue: defaultId
-                        },
                         attr: {
                             type: ArgumentType.STRING,
                             menu: 'lassAttrs',
@@ -187,34 +178,30 @@ class gasoLASS{
                 res.json().then(json => {
                     console.log('got origin lass set', json.feeds);
                     const data = json.feeds && json.feeds[0] ? json.feeds[0][Object.keys(json.feeds[0])[0]] : 'fetch error';
-                    this.data[id] = {
-                        fetched: true,
-                        data: JSON.stringify(data)
-                    };
+                    this.data.fetched = true;
+                    this.data.data = JSON.stringify(data);
                     this.runtime.startHats('gasoLASS_onLASSReceived', {});
                 });
             }
         });
     }
 
-    isDataFetched (id) {
-        return this.data[id] && this.data[id].fetched;
+    isDataFetched () {
+        return this.data.fetched;
     }
 
-    onLASSReceived (args){
-        const id = args.id || defaultId;
-        if (this.isDataFetched(id)) {
-            console.log('got LASS data with id ', id);
+    onLASSReceived (){
+        if (this.isDataFetched()) {
+            console.log('got LASS data');
             return true;
         }
     }
 
     parseAttrFromLASS (args){
-        const id = args.id || defaultId;
         const attr = args.attr;
-        if (this.isDataFetched(id)) {
+        if (this.isDataFetched()) {
             try {
-                const parsed = JSON.parse(this.data[id].data);
+                const parsed = JSON.parse(this.data.data);
                 console.warn('parsed ', attr, parsed);
                 const data = parsed[attr];
                 return typeof data === 'string' ? data : JSON.stringify(data);
