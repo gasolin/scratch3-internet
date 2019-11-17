@@ -192,6 +192,17 @@ class gasoJSON {
         return this.data[id] && this.data[id].fetched;
     }
 
+    // scratch-vm/src/blocks/scratch3_data.js
+    // setVariableTo (args, util) {
+    //     const variable = util.target.lookupOrCreateVariable(
+    //         args.VARIABLE.id, args.VARIABLE.name);
+    //     variable.value = args.VALUE;
+
+    //     if (variable.isCloud) {
+    //         util.ioQuery('cloud', 'requestUpdateVariable', [variable.name, args.VALUE]);
+    //     }
+    // }
+
     onJSONReceived (args){
         const id = args.id || defaultId;
         if (this.isDataFetched(id)) {

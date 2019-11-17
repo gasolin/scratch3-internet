@@ -21,7 +21,8 @@ This will clone `scratch-gui` and `scratch-vm` as submodules.
 ## Blocks
 
 currently provides
-- [JSON parse blocks](https://github.com/gasolin/scratch3-internet/tree/master/vm/extensions/scratch3_json)
+- [JSON parse blocks](https://github.com/gasolin/scratch3-internet/tree/master/vm/extensions/scratch3_json) - JSON blocks are general purpose blocks that provides JSON fetch and parse functions.
+- [LASS parse blocks](https://github.com/gasolin/scratch3-internet/tree/master/vm/extensions/scratch3_lass) - LASS blocks can fetch data from https://pm25.lass-net.org/
 
 ## Translation
 
