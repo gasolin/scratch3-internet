@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/gasolin/scratch3-internet#readme",
   "dependencies": {
+    "mkdirp": "0.5.1",
     "replace-in-files-cli": "^0.3.0",
     "rimraf": "^3.0.0"
   }
