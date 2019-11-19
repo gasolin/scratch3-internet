@@ -30,13 +30,13 @@ jobs:
         NODE_ENV: production
 
     - name: Deploy to GitHub Pages
-      # uses: peaceiris/actions-gh-pages@v2.5.0
+      # uses: peaceiris/actions-gh-pages@v2.5.1
       env:
         ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
         PUBLISH_BRANCH: gh-pages
         PUBLISH_DIR: scratch-gui/build
         SCRIPT_MODE: true
       run: |
-        wget https://raw.githubusercontent.com/peaceiris/actions-gh-pages/v2.5.0/entrypoint.sh
+        wget https://raw.githubusercontent.com/peaceiris/actions-gh-pages/v2.5.1/entrypoint.sh
         ls scratch-gui/build
         bash ./entrypoint.sh
