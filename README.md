@@ -30,5 +30,6 @@ Translation files are locate nearby the blocks definition file in the `/vm/exten
 To host the scratch 3 web in your github page
 
 ```sh
+npm run build
 npm run deploy
 ```
