@@ -2,6 +2,9 @@
 
 [![GitHub Actions](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fgasolin%2Fscratch3-internet%2Fbadge&style=flat-square)](https://actions-badge.atrox.dev/gasolin/scratch3-internet/goto)
 
+scratch3-internet project is aim to enable plenty of internet interactions for scratch 3 users.
+scratch3-internet project also come up a easy-to-use extention setup/deploy structure, so extension developer can fork the project and start their extension development immediately.
+
 ## Getting start
 
 ```sh
