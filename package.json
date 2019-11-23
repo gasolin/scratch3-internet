@@ -1,6 +1,6 @@
 {
   "name": "scratch3-internet",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Some extensions to extend scratch 3's internet capability",
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,8 @@
     "build:replace": "replace-in-files --string='--progress' --replacement='--display-error-details --mode production' 'scratch-gui/package.json'",
     "build:gui": "cd scratch-gui && npm run build && cd ..",
     "build": "npm run build:replace && npm run build:gui",
-    "upgrade": "git submodule update --init"
+    "upgrade": "git submodule update --init",
+    "deploy": "npx gh-pages -d scratch-gui/build"
   },
   "repository": {
     "type": "git",

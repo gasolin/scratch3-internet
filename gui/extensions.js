@@ -21,7 +21,7 @@ const json = {
 };
 
 const lass = {
-    name: 'LASS積木',
+    name: 'LASS',
     extensionId: 'lass',
     collaborator: 'gasolin',
     iconURL: gdxforIconURL,
@@ -31,6 +31,28 @@ const lass = {
             defaultMessage="Fetch LASS."
             description="Fetch LASS extension"
             id="gui.extension.gasolass.description"
+        />
+    ),
+    featured: true,
+    disabled: false,
+    // bluetoothRequired: false,
+    internetConnectionRequired: true,
+    // launchPeripheralConnectionFlow: false,
+    useAutoScan: false,
+    helpLink: 'https://github.com/gasolin/scratch3-internet'
+};
+
+const ifttt = {
+    name: 'IFTTT',
+    extensionId: 'ifttt',
+    collaborator: 'gasolin',
+    iconURL: gdxforIconURL,
+    insetIconURL: gdxforInsetIconURL,
+    description: (
+        <FormattedMessage
+            defaultMessage="IFTTT Webhook"
+            description="IFTTT Webhook extension"
+            id="gui.extension.gasoifttt.description"
         />
     ),
     featured: true,
