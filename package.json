@@ -1,6 +1,6 @@
 {
   "name": "scratch3-internet",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Some extensions to extend scratch 3's internet capability",
   "main": "index.js",
   "scripts": {
@@ -30,9 +30,13 @@
   },
   "homepage": "https://github.com/gasolin/scratch3-internet#readme",
   "dependencies": {
-    "lodash": "4.17.15",
-    "mkdirp": "0.5.1",
+    "lodash": "^4.17.15"
+  },
+  "devDependencies": {
+    "mkdirp": "^0.5.1",
     "replace-in-files-cli": "^0.3.0",
-    "rimraf": "^3.0.0"
+    "rimraf": "^3.0.0",
+    "shx": "^0.3.2",
+    "shelljs": "^0.8.3"
   }
 }
