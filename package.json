@@ -1,6 +1,6 @@
 {
   "name": "scratch3-internet",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "description": "Some extensions to extend scratch 3's internet capability",
   "main": "index.js",
   "scripts": {

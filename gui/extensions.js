@@ -63,3 +63,25 @@ const ifttt = {
     useAutoScan: false,
     helpLink: 'https://github.com/gasolin/scratch3-internet'
 };
+
+const thingspeak = {
+    name: 'ThingSpeak',
+    extensionId: 'thingspeak',
+    collaborator: 'gasolin',
+    iconURL: gdxforIconURL,
+    insetIconURL: gdxforInsetIconURL,
+    description: (
+        <FormattedMessage
+            defaultMessage="ThingSpeak"
+            description="ThingSpeak extension"
+            id="gui.extension.gasothingspeak.description"
+        />
+    ),
+    featured: true,
+    disabled: false,
+    // bluetoothRequired: false,
+    internetConnectionRequired: true,
+    // launchPeripheralConnectionFlow: false,
+    useAutoScan: false,
+    helpLink: 'https://github.com/gasolin/scratch3-internet'
+};

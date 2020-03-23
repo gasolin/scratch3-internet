@@ -9,14 +9,14 @@ const blockIconURI = null;
 const defaultValue = '';
 let theLocale = null;
 
-class gasoIFTTT {
+class gasoThingSpeak {
     constructor (runtime) {
         theLocale = this._setLocale();
         this.runtime = runtime;
         // communication related
         this.comm = runtime.ioDevices.comm;
         this.session = null;
-        this.runtime.registerPeripheralExtension('gasoIFTTT', this);
+        this.runtime.registerPeripheralExtension('gasoThingSpeak', this);
         // session callbacks
         this.reporter = null;
         this.onmessage = this.onmessage.bind(this);
@@ -83,7 +83,7 @@ class gasoIFTTT {
         theLocale = this._setLocale();
 
         return {
-            id: 'gasoIFTTT',
+            id: 'gasoThingSpeak',
             name: msg.name[theLocale],
             color1: '#4a90e2',
             color2: '#4a90e2',
@@ -91,16 +91,12 @@ class gasoIFTTT {
             blockIconURI: blockIconURI,
             blocks: [
                 {
-                    opcode: 'fetchIFTTT',
+                    opcode: 'fetchThingSpeak',
                     blockType: BlockType.COMMAND,
                     arguments: {
                         key: {
                             type: ArgumentType.STRING,
                             defaultValue: 'key'
-                        },
-                        event: {
-                            type: ArgumentType.STRING,
-                            defaultValue: 'event'
                         },
                         value1: {
                             type: ArgumentType.STRING,
@@ -113,28 +109,52 @@ class gasoIFTTT {
                         value3: {
                             type: ArgumentType.STRING,
                             defaultValue: ' '
+                        },
+                        value4: {
+                            type: ArgumentType.STRING,
+                            defaultValue: ' '
+                        },
+                        value5: {
+                            type: ArgumentType.STRING,
+                            defaultValue: ' '
+                        },
+                        value6: {
+                            type: ArgumentType.STRING,
+                            defaultValue: ' '
+                        },
+                        value7: {
+                            type: ArgumentType.STRING,
+                            defaultValue: ' '
+                        },
+                        value8: {
+                            type: ArgumentType.STRING,
+                            defaultValue: ' '
                         }
                     },
-                    text: msg.fetchIFTTT[theLocale]
+                    text: msg.fetchThingSpeak[theLocale]
                 }
             ]
         };
     }
 
-    fetchIFTTT (args) {
+    fetchThingSpeak (args) {
         const key = args.key;
-        const event = args.event;
         const value1 = args.value1 || defaultValue;
         const value2 = args.value2 || defaultValue;
         const value3 = args.value3 || defaultValue;
-        const originalURL = `https://maker.ifttt.com/trigger/${event}/with/key/${key}?value1=${value1}&value2=${value2}&value3=${value3}`;
+        const value4 = args.value4 || defaultValue;
+        const value5 = args.value5 || defaultValue;
+        const value6 = args.value6 || defaultValue;
+        const value7 = args.value7 || defaultValue;
+        const value8 = args.value8 || defaultValue;
+        const originalURL = `https://api.thingspeak.com/update?api_key=${key}&field1=${value1}&field2=${value2}&field3=${value3}&field4=${value4}&field5=${value5}&field6=${value6}&field7=${value7}&field8=${value8}`
         // https://developer.mozilla.org/zh-TW/docs/Web/API/Fetch_API/Using_Fetch
         return fetch(originalURL, {
             mode: 'no-cors',
-            method: 'POST'
+            method: 'GET'
             // body: encodeURIComponent(JSON.stringify({value1, value2, value3}))
         }).catch(error => console.error('Error:', error));
     }
 }
 
-module.exports = gasoIFTTT;
+module.exports = gasoThingSpeak;

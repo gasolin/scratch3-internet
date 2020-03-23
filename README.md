@@ -18,7 +18,8 @@ npm run start
 currently provides
 - [JSON parse blocks](https://github.com/gasolin/scratch3-internet/tree/master/vm/extensions/scratch3_json) - JSON blocks are general purpose blocks that provides JSON fetch and parse functions.
 - [LASS parse blocks](https://github.com/gasolin/scratch3-internet/tree/master/vm/extensions/scratch3_lass) - LASS blocks can fetch data from https://pm25.lass-net.org/
-- [IFTTT webhook block](https://github.com/gasolin/scratch3-internet/tree/master/vm/extensions/scratch3_ifttt) - IFTTT webhook block can use IFTTT to connect with plenty of web services https://maker.ifttt.com/
+- [IFTTT webhook block](https://github.com/gasolin/scratch3-internet/tree/master/vm/extensions/scratch3_ifttt) - [IFTTT](https://maker.ifttt.com/) webhook block can use IFTTT to connect with plenty of web services
+- [ThingSpeak block](https://github.com/gasolin/scratch3-internet/tree/master/vm/extensions/scratch3_thingspeak) - [ThingSpeak](https://thingspeak.com/) block can use ThingSpeak to [save data](http://blog.ilc.edu.tw/blog/blog/868/post/97509/733185)
 
 ## Translation
 
