@@ -27,6 +27,8 @@ class gasoJSON {
         this.lineBuffer = '';
 
         this.data = {};
+	this.txt = {};
+	this.txtlenght = {};
         this.emptyObj = {
             VALUE: {}
         };
@@ -64,6 +66,7 @@ class gasoJSON {
             }
         }
     }
+
 
     scan () {
         this.comm.getDeviceList().then(result => {
@@ -113,16 +116,20 @@ class gasoJSON {
                     arguments: {},
                     text: msg.onJSONReceived[theLocale]
                 },
-                {
-                    opcode: 'readFromJSON',
+		{
+                    opcode: 'readEntryFromJSON',
                     blockType: BlockType.REPORTER,
                     arguments: {
-                        id: {
+                        variable: {
                             type: ArgumentType.STRING,
-                            defaultValue: 'id'
+                            defaultValue: 'data'
+                        },
+                        n: {
+                            type: ArgumentType.NUMBER,
+                            defaultValue: '1'
                         }
                     },
-                    text: msg.readFromJSON[theLocale]
+                    text: msg.readEntryFromJSON[theLocale]
                 },
                 {
                     opcode: 'readAttrFromJSON',
@@ -140,7 +147,100 @@ class gasoJSON {
                     text: msg.readAttrFromJSON[theLocale]
                 },
                 {
-                    opcode: 'readEntryFromJSON',
+                    opcode: 'readFromJSON',
+                    blockType: BlockType.REPORTER,
+                    arguments: {
+                        id: {
+                            type: ArgumentType.STRING,
+                            defaultValue: 'id'
+                        }
+                    },
+                    text: msg.readFromJSON[theLocale]
+                },
+		{
+                    opcode: 'googleJSON',
+                    blockType: BlockType.COMMAND,
+                    arguments: {
+                        url: {
+                            type: ArgumentType.STRING,
+                            defaultValue: 'https://docs.google.com/spreadsheets/d/KEY_ID/edit?usp=sharing'
+                        }
+                    },
+                    text: msg.googleJSON[theLocale]
+                },
+		{
+                    opcode: 'writegoogleCalc',
+                    blockType: BlockType.COMMAND,
+                    arguments: {
+                        url: {
+                            type: ArgumentType.STRING,
+                            defaultValue: 'https://script.google.com/macros/s/「key」/exec'
+                        },
+			column1: {
+			    type: ArgumentType.STRING,
+                            defaultValue: ' '
+			},
+			column2: {
+			    type: ArgumentType.STRING,
+                            defaultValue: ' '
+			},
+			column3: {
+			    type: ArgumentType.STRING,
+                            defaultValue: ' '
+			}
+                    },
+                    text: msg.writegoogleCalc[theLocale]
+                },
+		{
+                    opcode: 'readtextFILE',
+                    blockType: BlockType.COMMAND,
+                    arguments: {
+                        url: {
+                            type: ArgumentType.STRING,
+                            defaultValue: 'http://「IP」/FILE.txt'
+                        }
+		    },
+		    text:msg.readtextFILE[theLocale]
+                },
+		{
+                    opcode: 'texttoARRAY',
+                    blockType: BlockType.COMMAND,
+                    arguments: {
+                        variable: {
+                            type: ArgumentType.STRING,
+                            defaultValue: ' '
+                        },
+			toarray:{
+                            type: ArgumentType.STRING,
+                            defaultValue: ' '
+                        }
+		    },
+		    text:msg.texttoARRAY[theLocale]
+                },
+                {
+                    opcode: 'readFromTEXT',
+                    blockType: BlockType.REPORTER,
+                    arguments: {
+                        id: {
+                            type: ArgumentType.STRING,
+                            defaultValue: 'id'
+                        }
+                    },
+                    text: msg.readFromTEXT[theLocale]
+                },
+                {
+                    opcode: 'textLENGHT',
+                    blockType: BlockType.REPORTER,
+                    arguments: {
+                        id: {
+                            type: ArgumentType.STRING,
+                            defaultValue: 'id'
+                        }
+                    },
+                    text: msg.textLENGHT[theLocale]
+                },
+		{
+                    opcode: 'readtxtDATA',
                     blockType: BlockType.REPORTER,
                     arguments: {
                         variable: {
@@ -152,7 +252,18 @@ class gasoJSON {
                             defaultValue: '1'
                         }
                     },
-                    text: msg.readEntryFromJSON[theLocale]
+                    text: msg.readtxtDATA[theLocale]
+                },
+                {
+                    opcode: 'openURL',
+                    blockType: BlockType.COMMAND,
+                    arguments: {
+                        url: {
+                            type: ArgumentType.STRING,
+                            defaultValue: 'https://'
+                        }
+                    },
+                    text: msg.openURL[theLocale]
                 }
             ]
         };
@@ -172,8 +283,32 @@ class gasoJSON {
         });
     }
 
+    googleJSON (args) {
+	const urlsplit = args.url.split("/");
+	const aurl ='https://spreadsheets.google.com/feeds/list/'+urlsplit[5]+'/od6/public/values?alt=json';
+	const url = new URL(aurl);
+        return fetch(url).then(res => {
+            if (res.ok) {
+                res.json().then(json => {
+                    console.log("got json set", json);
+                    this.data.fetched = true;
+                    this.data.data = JSON.stringify(json.feed.entry);
+                    this.runtime.startHats('gasoJSON_onJSONReceived', {});
+                });
+            }
+        });
+    }
+
     isDataFetched () {
         return this.data.fetched;
+    }
+
+    isTxtFetched () {
+        return this.txt.fetched;
+    }
+
+    istextLENGHTFetched () {
+        return this.txtlenght.fetched;
     }
 
     onJSONReceived (){
@@ -191,6 +326,19 @@ class gasoJSON {
         return msg.readFromJSONErr[theLocale];
     }
 
+
+    readEntryFromJSON (args) {
+        const variable = args.variable || this.emptyObj;
+        const n = args.n;
+        try {
+	    const parsed = JSON.parse(variable);
+            const data = parsed[n - 1];
+            return typeof data === 'string' ? data : JSON.stringify(data);
+        } catch (err) {
+            return `Error: ${err}`;
+        }
+    }
+
     readAttrFromJSON (args) {
         const variable = args.variable || this.emptyObj;
         const attr = args.attr;
@@ -203,17 +351,68 @@ class gasoJSON {
         }
     }
 
-    readEntryFromJSON (args) {
+    readtextFILE (args) {
+	const file = args.url;
+	this.txt.data = fetch(file,{method:'get'}).then(response => response.text());
+	this.txt.fetched = true;
+    }
+
+    texttoARRAY (args) {
+	const textdata = args.variable || this.emptyObj;
+	const textarray = textdata.split('\n');
+	this.txtlenght.data = textarray.length-1;
+	this.txtlenght.fetched =true;
+	this.txt.data = textarray;
+	this.txt.fetched = true;
+    }
+
+    readtxtDATA (args) {
         const variable = args.variable || this.emptyObj;
         const n = args.n;
         try {
-            const parsed = JSON.parse(variable);
+	    const parsed = variable.split('\n');
+	    this.txtlenght.fetched = true;
+	    this.txtlenght.data = parsed.length-1;
             const data = parsed[n - 1];
-            return typeof data === 'string' ? data : JSON.stringify(data);
+            return typeof data === 'string' ? data : txt.stringify(data);
         } catch (err) {
             return `Error: ${err}`;
         }
     }
+
+
+    readFromTEXT () {
+        if (this.isTxtFetched()) {
+            console.log('return ', this.txt.data);
+            return this.txt.data;
+        }
+        return msg.readFromTEXTErr[theLocale];
+    }
+
+    textLENGHT () {
+        if (this.istextLENGHTFetched()) {
+            console.log('return ', this.txtlenght.data);
+            return this.txtlenght.data;
+        }
+        return msg.textLENGHTErr[theLocale];
+    }
+
+    writegoogleCalc (args) {
+	const column1 = args.column1 || defaultValue;
+	const column2 = args.column2 || defaultValue;
+	const column3 = args.column3 || defaultValue;
+	const gurl = args.url+"?c1="+column1+"&c2="+column2+"&c3="+column3;
+	return fetch(gurl,{method:'get'}).then(res => {
+	    if (res.ok) {
+	    }
+	});
+    }
+
+    openURL (args) {
+	const url = args.url;
+	var openurl = window.open(url);
+    }
+
 }
 
 module.exports = gasoJSON;
