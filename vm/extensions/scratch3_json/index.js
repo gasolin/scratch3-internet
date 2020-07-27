@@ -29,6 +29,7 @@ class gasoJSON {
         this.data = {};
 	this.txt = {};
 	this.txtlenght = {};
+	this.googlecolumn = {};
         this.emptyObj = {
             VALUE: {}
         };
@@ -169,7 +170,26 @@ class gasoJSON {
                     text: msg.googleJSON[theLocale]
                 },
 		{
-                    opcode: 'writegoogleCalc',
+                    opcode: 'googlecolumnTEXT',
+                    blockType: BlockType.REPORTER,
+                    arguments: {
+			variable: {
+                            type: ArgumentType.STRING,
+                            defaultValue: 'data'
+                        },
+                        n: {
+                            type: ArgumentType.NUMBER,
+                            defaultValue: '1'
+                        },
+                        column: {
+                            type: ArgumentType.STRING,
+                            defaultValue: 'title'
+                        }
+                    },
+                    text: msg.googlecolumnTEXT[theLocale]
+                },
+		{
+                    opcode: 'writeGoogleCalc',
                     blockType: BlockType.COMMAND,
                     arguments: {
                         url: {
@@ -189,7 +209,7 @@ class gasoJSON {
                             defaultValue: ' '
 			}
                     },
-                    text: msg.writegoogleCalc[theLocale]
+                    text: msg.writeGoogleCalc[theLocale]
                 },
 		{
                     opcode: 'readtextFILE',
@@ -197,25 +217,10 @@ class gasoJSON {
                     arguments: {
                         url: {
                             type: ArgumentType.STRING,
-                            defaultValue: 'http://「IP」/FILE.txt'
+                            defaultValue: 'http://0.0.0.0:8601/FILE.txt'
                         }
 		    },
 		    text:msg.readtextFILE[theLocale]
-                },
-		{
-                    opcode: 'texttoARRAY',
-                    blockType: BlockType.COMMAND,
-                    arguments: {
-                        variable: {
-                            type: ArgumentType.STRING,
-                            defaultValue: ' '
-                        },
-			toarray:{
-                            type: ArgumentType.STRING,
-                            defaultValue: ' '
-                        }
-		    },
-		    text:msg.texttoARRAY[theLocale]
                 },
                 {
                     opcode: 'readFromTEXT',
@@ -357,15 +362,6 @@ class gasoJSON {
 	this.txt.fetched = true;
     }
 
-    texttoARRAY (args) {
-	const textdata = args.variable || this.emptyObj;
-	const textarray = textdata.split('\n');
-	this.txtlenght.data = textarray.length-1;
-	this.txtlenght.fetched =true;
-	this.txt.data = textarray;
-	this.txt.fetched = true;
-    }
-
     readtxtDATA (args) {
         const variable = args.variable || this.emptyObj;
         const n = args.n;
@@ -389,6 +385,25 @@ class gasoJSON {
         return msg.readFromTEXTErr[theLocale];
     }
 
+    googlecolumnTEXT(args){
+	const variable = args.variable || this.emptyObj;
+        const n = args.n;
+	const column = "gsx$" + args.column;
+        try {
+	    const parsed = JSON.parse(variable);
+            var data = parsed[n - 1];
+            data = JSON.stringify(data);
+            const a_parsed = JSON.parse(data);
+            var a_data = a_parsed[column];
+	    a_data = JSON.stringify(a_data);
+	    const t_parsed = JSON.parse(a_data);
+	    var t_data = t_parsed["$t"];
+            return typeof t_data === 'string' ? t_data : JSON.stringify(t_data);
+         }catch (err){
+	    return `Error: ${err}`;	
+	}
+    }
+
     textLENGHT () {
         if (this.istextLENGHTFetched()) {
             console.log('return ', this.txtlenght.data);
@@ -397,12 +412,14 @@ class gasoJSON {
         return msg.textLENGHTErr[theLocale];
     }
 
-    writegoogleCalc (args) {
+    writeGoogleCalc (args) {
+	alert("test");
 	const column1 = args.column1 || defaultValue;
 	const column2 = args.column2 || defaultValue;
 	const column3 = args.column3 || defaultValue;
-	const gurl = args.url+"?c1="+column1+"&c2="+column2+"&c3="+column3;
-	return fetch(gurl,{method:'get'}).then(res => {
+	const url = args.url;
+	var gurl = url + "?c1=" + column1 + "&c2=" + column2 + "&c3=" + column3;
+	return fetch(gurl).then(res => {
 	    if (res.ok) {
 	    }
 	});

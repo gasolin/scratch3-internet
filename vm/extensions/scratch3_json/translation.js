@@ -13,12 +13,17 @@ export const googleJSON = {
     'zh-tw': '從google [url] 取得JSON格式資料'
 };
 
+export const googlecolumnTEXT = {
+    'en': 'Get google [variable] the [n]recoder column [column] value',
+    'zh-tw': 'google [variable] 第 [n] 筆欄位名稱[column] '
+};
+
 export const openURL = {
     'en': 'Open url websit [url]',
     'zh-tw': '瀏覽器開啟網址 [url] '
 };
 
-export const writegoogleCalc = {
+export const writeGoogleCalc = {
     'en': 'google api url: [url] column1:[column1]column2:[column2]colunm3:[column3]',
     'zh-tw': 'google api網址：[url] 參數1 [column1] 參數2 [column2] 參數3 [column3]'
 };
@@ -38,12 +43,6 @@ export const readFromTEXT = {
     'zh-tw': '讀取 TEXT 資料'
 };
 
-export const texttoARRAY = {
-    'en': '[variable] TEXT data to array ',
-    'zh-tw': '[variable] TEXT轉成清單'
-};
-
-
 export const textLENGHT = {
     'en': 'TEXT data length ',
     'zh-tw': 'TEXT資料筆數'
@@ -55,8 +54,8 @@ export const readFromJSON = {
 };
 
 export const readFromJSONErr = {
-    'en': `Error： Data does not exist`,
-    'zh-tw': `錯誤： 資料不存在`
+    'en': `Error：JSON Data does not exist`,
+    'zh-tw': `錯誤：JSON 資料不存在`
 };
 
 
