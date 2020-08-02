@@ -38,7 +38,7 @@ class gasoIFTTT {
                     this.reporter = {
                         parser,
                         resolve
-                    };
+                    }
                 }
                 this.session.write(data);
             });
@@ -93,6 +93,7 @@ class gasoIFTTT {
                 {
                     opcode: 'fetchIFTTT',
                     blockType: BlockType.COMMAND,
+                    text: msg.fetchIFTTT[theLocale],
                     arguments: {
                         key: {
                             type: ArgumentType.STRING,
@@ -114,8 +115,7 @@ class gasoIFTTT {
                             type: ArgumentType.STRING,
                             defaultValue: ' '
                         }
-                    },
-                    text: msg.fetchIFTTT[theLocale]
+                    }
                 }
             ]
         };
