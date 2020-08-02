@@ -9,7 +9,7 @@ const blockIconURI = null;
 const defaultValue = '';
 let theLocale = null;
 
-class gasoIFTTT {
+class Scratch3gasoIFTTT {
     constructor (runtime) {
         theLocale = this._setLocale();
         this.runtime = runtime;
@@ -137,4 +137,4 @@ class gasoIFTTT {
     }
 }
 
-module.exports = gasoIFTTT;
+module.exports = Scratch3gasoIFTTT;
