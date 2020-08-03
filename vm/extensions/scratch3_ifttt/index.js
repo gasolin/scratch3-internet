@@ -9,7 +9,7 @@ const blockIconURI = null;
 const defaultValue = '';
 let theLocale = null;
 
-class Scratch3gasoIFTTT {
+class gasoIFTTT {
     constructor (runtime) {
         theLocale = this._setLocale();
         this.runtime = runtime;
@@ -38,7 +38,7 @@ class Scratch3gasoIFTTT {
                     this.reporter = {
                         parser,
                         resolve
-                    }
+                    };
                 }
                 this.session.write(data);
             });
@@ -93,7 +93,6 @@ class Scratch3gasoIFTTT {
                 {
                     opcode: 'fetchIFTTT',
                     blockType: BlockType.COMMAND,
-                    text: msg.fetchIFTTT[theLocale],
                     arguments: {
                         key: {
                             type: ArgumentType.STRING,
@@ -115,7 +114,8 @@ class Scratch3gasoIFTTT {
                             type: ArgumentType.STRING,
                             defaultValue: ' '
                         }
-                    }
+                    },
+                    text: msg.fetchIFTTT[theLocale]
                 }
             ]
         };
@@ -137,4 +137,4 @@ class Scratch3gasoIFTTT {
     }
 }
 
-module.exports = Scratch3gasoIFTTT;
+module.exports = gasoIFTTT;
