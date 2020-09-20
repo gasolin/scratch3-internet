@@ -37,3 +37,7 @@ To host the scratch 3 web in your github page
 npm run build
 npm run deploy
 ```
+
+## Reference
+
+The project is also used for https://sites.google.com/view/osep-scratch3/ (repo https://github.com/ys-fang/OSEP)
