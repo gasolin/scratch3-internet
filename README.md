@@ -40,4 +40,4 @@ npm run deploy
 
 ## Reference
 
-The project is also used for https://sites.google.com/view/osep-scratch3/ (repo https://github.com/ys-fang/OSEP)
+The project is also used for https://sites.google.com/view/osep-scratch3/ (repo https://github.com/osep-scratch/app/)
